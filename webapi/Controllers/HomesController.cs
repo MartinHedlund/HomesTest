@@ -47,13 +47,13 @@ namespace webapi.Controllers
 
         // GET: api/Homes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Home>> GetHome(int id)
+        public async Task<ActionResult<Home>> GetHomebyId(int id)
         {
           if (_context.Homes == null)
           {
               return NotFound();
           }
-            var home = await _context.Homes.FindAsync(id);
+            var home = await _context.Homes.Include(x => x.WaterMeterId).FirstOrDefaultAsync();
 
             if (home == null)
             {
