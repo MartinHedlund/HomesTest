@@ -1,59 +1,125 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
+import "./index.css";
+import {
+    AppstoreOutlined,
+    BarChartOutlined,
+    CloudOutlined,
+    ShopOutlined,
+    TeamOutlined,
+    UploadOutlined,
+    UserOutlined,
+    VideoCameraOutlined
+} from "@ant-design/icons";
+import { Button, Input, Layout, Menu, Modal, theme } from "antd";
+import MyForm from "./components/MyForm";
+import MyModalWindow from "./components/MyModalWindow";
+const { Header, Content, Footer, Sider } = Layout;
+const items = [
+    UserOutlined,
+    VideoCameraOutlined,
+    UploadOutlined,
+    BarChartOutlined,
+    CloudOutlined,
+    AppstoreOutlined,
+    TeamOutlined,
+    ShopOutlined
+].map((icon, index) => ({
+    key: String(index + 1),
+    icon: React.createElement(icon),
+    label: `nav link ${index + 1}`
+}));
 
-export default class App extends Component {
-    static displayName = App.name;
 
-    constructor(props) {
-        super(props);
-        this.state = { forecasts: [], loading: true };
-    }
+const App = () => {
 
-    componentDidMount() {
-        this.populateWeatherData();
-    }
+    const [collapsed, setCollapsed] = useState(false);
+    const {
+        token: { colorBgContainer }
+    } = theme.useToken();
 
-    static renderForecastsTable(forecasts) {
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forecasts.map(forecast =>
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
+    // modal back
+    
+    // end
 
-    render() {
-        let contents = this.state.loading
-            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-            : App.renderForecastsTable(this.state.forecasts);
 
-        return (
-            <div>
-                <h1 id="tabelLabel" >Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server.</p>
-                {contents}
-            </div>
-        );
-    }
+    return (
+        <Layout >
+            <Sider
+                breakpoint="lg"
+                collapsible
+                collapsed={collapsed}
+                onCollapse={(value) => setCollapsed(value)}
+                style={{
 
-    async populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        this.setState({ forecasts: data, loading: false });
-    }
-}
+                }}
+            >
+                <div className="demo-logo-vertical" style={{ color: "#fefe22" }}>
+                    Тупо текст, который я зачем то сюда написал
+                </div>
+                <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={["1"]}
+                    items={items}
+                />
+            </Sider>
+            <Layout>
+                <Header
+                    style={{
+                        display: 'flex',
+                        height: 'auto',
+                        padding: 0,
+                        margin: '5px 16px 0px',
+                        background: colorBgContainer
+                    }}
+                >
+                    <MyModalWindow />
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        flexWrap: 'warp',
+                    }}>
+                        <p>поиграться со стилями что то не то</p>
+                        <p>тут вставить кнопку которая открывает модальное окно для добавления дома в контенте</p>
+                        <p>сделать таблицу с поиском и добавлением счетчика и редактирование</p>
+                    </div>
+                </Header>
+                <Content
+                    style={{
+                        margin: '24px 16px',
+                        padding: 24,
+                        minHeight: 280,
+                        background: colorBgContainer,
+                    }}
+                >
+                    <div
+                        style={{
+                            padding: 50,
+                            textAlign: "center",
+                            background: colorBgContainer
+                        }}
+                    >
+                        <p>long content</p>
+                        {
+                            // indicates very long content
+                            Array.from({ length: 100 }, (_, index) => (
+                                <React.Fragment key={index}>
+                                    {index % 20 === 0 && index ? 'more' : '...'}
+                                    <br />
+                                </React.Fragment>
+                            ))
+                        }
+                    </div>
+                </Content>
+                <Footer
+                    style={{
+                        textAlign: "center"
+                    }}
+                >
+                    ©2023
+                </Footer>
+            </Layout>
+        </Layout>
+    );
+};
+export default App;

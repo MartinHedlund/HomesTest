@@ -12,9 +12,18 @@ namespace webapi
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            string constring = "Server = (localdb)\\mssqllocaldb; Database = applicationdb; Trusted_Connection = True;";
-            services.AddDbContext<DbServise>(options => options.UseSqlServer());
+            string constring = "Server = (localdb)\\MSSQLLocalDB; Database = Material; Trusted_Connection = True;";
+            services.AddDbContext<DbServise>(options => options.UseSqlServer(constring));
             services.AddScoped<DbServise>();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithOrigins("*").AllowAnyHeader()
+                                              .AllowAnyMethod();
+                    });
+            });
             // Добавьте свои сервисы здесь
             // services.AddTransient<IMyService, MyService>();
             // services.AddScoped<IAnotherService, AnotherService>();

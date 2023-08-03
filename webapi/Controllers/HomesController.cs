@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using webapi.Model;
 using webapi.Service;
 
@@ -23,24 +24,36 @@ namespace webapi.Controllers
 
         // GET: api/Homes
         [HttpGet]
+        [Route("get-all")]
         public async Task<ActionResult<IEnumerable<Home>>> GetHomes()
+        //public async Task<ActionResult<string>> GetHomes()
         {
           if (_context.Homes == null)
           {
               return NotFound();
           }
-            return await _context.Homes.ToListAsync();
+            try
+            {
+                return await _context.Homes.Include(x => x.WaterMeterId).ToListAsync(); ;
+
+            }
+            catch (Exception ex)
+            {
+
+                await Console.Out.WriteLineAsync(ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET: api/Homes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Home>> GetHome(int id)
+        public async Task<ActionResult<Home>> GetHomebyId(int id)
         {
           if (_context.Homes == null)
           {
               return NotFound();
           }
-            var home = await _context.Homes.FindAsync(id);
+            var home = await _context.Homes.Include(x => x.WaterMeterId).FirstOrDefaultAsync();
 
             if (home == null)
             {
@@ -84,7 +97,7 @@ namespace webapi.Controllers
         // POST: api/Homes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Home>> PostHome(Home home)
+        public async Task<ActionResult<Home>> PostHome([FromBody] Home home)
         {
           if (_context.Homes == null)
           {

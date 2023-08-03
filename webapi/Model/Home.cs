@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
 namespace webapi.Model
 {
+    [Table("Home", Schema ="dbo")]
     public class Home
     {
         [Key]
         public int Id { get; set; }
-        public string Address { get; set; }
+        public string? Adress { get; set; }
 
-        [ForeignKey(nameof(WaterMetrId))]
-        public int WaterMetrId { get; set; }
-        public WaterMeter WaterMeter { get; set; }
+        public List<WaterMeter>? WaterMeterId { get; set; }
     }
 }
