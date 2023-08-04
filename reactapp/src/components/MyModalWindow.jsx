@@ -1,16 +1,14 @@
 import {React, useState} from 'react';
-import { Button, Input, Layout, Menu, Modal, theme } from "antd";
+import { Button, Modal } from "antd";
 
-export default function MyModalWindow({ children }) {
+export default function MyModalWindow({children, title}) {
     const [openModal, setOpenModal] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [modalText, setModalText] = useState('Content of the modal');
     const showModal = () => {
         setOpenModal(true);
     };
 
     const handleOk = () => {
-        setModalText('The modal will be closed after two seconds');
         setConfirmLoading(true);
         setTimeout(() => {
             setOpenModal(false);
@@ -19,21 +17,22 @@ export default function MyModalWindow({ children }) {
     };
 
     const handleCancel = () => {
-        console.log('Clicked cancel button');
         setOpenModal(false);
     };
     return (
         <>
-        <Button type="primary" onClick={showModal}>
+        <Button type="primary" style={{margin: 16}} onClick={showModal}>
             Создать новый дом
         </Button>
         <Modal
-            title="Title"
+            title={title}
+            footer = {null}
+            destroyOnClose='true'
             open={openModal}
-            onOk={handleOk}
+            onCancel={handleCancel}
             confirmLoading={confirmLoading}
-            onCancel={handleCancel}>
-                
+            >
+            {children}
             </Modal>
         </>
     )

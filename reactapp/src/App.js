@@ -73,8 +73,10 @@ const App = () => {
                         background: colorBgContainer
                     }}
                 >
-                    <MyModalWindow />
-                    <div style={{
+                    <MyModalWindow title="Создать новый дом">
+                        <MyForm/>
+                    </MyModalWindow>
+                    {/* <div style={{
                         display: 'flex',
                         flexDirection: 'column',
                         flexWrap: 'warp',
@@ -82,7 +84,7 @@ const App = () => {
                         <p>поиграться со стилями что то не то</p>
                         <p>тут вставить кнопку которая открывает модальное окно для добавления дома в контенте</p>
                         <p>сделать таблицу с поиском и добавлением счетчика и редактирование</p>
-                    </div>
+                    </div> */}
                 </Header>
                 <Content
                     style={{
