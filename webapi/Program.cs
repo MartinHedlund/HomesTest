@@ -2,7 +2,7 @@ using webapi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Регистрация сервисов внутри
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 ServiceRegistration.RegisterServices(builder.Services);
 
 
@@ -18,6 +18,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseRouting();
+ app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        // Р”СЂСѓРіРёРµ РјР°СЂС€СЂСѓС‚С‹
+    });
 app.UseAuthorization();
 
 app.MapControllers();

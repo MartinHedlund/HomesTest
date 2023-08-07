@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Select } from 'antd';
 import DataService from '../service/DataTableService';
 
 const MyForm = () => {
@@ -8,20 +8,41 @@ const MyForm = () => {
 
   const onFinish = (values) => {
     console.log(values);
-    const rest = DataService.insertHome(values);
-    console.log(rest);
+    // const rest = DataService.insertHome(values);
   };
 
   const toggleForm = () => {
     setExpandForm(!expandForm);
   };
-
+  const { Option } = Select;
+  const selectBefore = (
+    <Select defaultValue="ул">
+      <Option value="ул">улица</Option>
+      <Option value="пр">проспект</Option>
+      <Option value="бул">бульвар</Option>
+      <Option value="пер">переулок</Option>
+      <Option value="тупик">тупик</Option>
+    </Select>
+  );
   return (
     <div>
       <Form form={form} onFinish={onFinish}>
-        <Form.Item name="adress" label="Адрес">
-          <Input />
+
+        <Form.Item name="streat" label="Улица">
+          <Input placeholder='Ленина' addonBefore={selectBefore} />
         </Form.Item>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+        <Form.Item name="house" label="Дом">
+          <Input placeholder='35'/>
+        </Form.Item>
+        <Form.Item name="flour" label="Этаж">
+          <Input placeholder='2'/>
+        </Form.Item>
+        <Form.Item name="appartament" label="Квартира">
+          <Input placeholder='15' />
+        </Form.Item>
+        </div>
+        
         {/* <Form.Item>
           <Button type="link" onClick={toggleForm}>
             {expandForm ? 'Скрыть' : 'Добавить счетчик'}
@@ -41,7 +62,7 @@ const MyForm = () => {
         )} */}
         <div id="okBttn" style={{display: 'flex', justifyContent: "flex-end"}}>
           <Form.Item style={{margin: 0}}>
-            <Button type="primary"  onClick={DataService.getAll()}>
+            <Button type="primary">
               Отправить
             </Button>
           </Form.Item>
