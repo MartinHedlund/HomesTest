@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'https://localhost:7053/'
+const BASE_URL = 'https://localhost:5108/'
 export default class DataService {
     static async getAll() {
         const response = await axios.get(BASE_URL + 'api/Homes/get-all');
@@ -7,13 +7,14 @@ export default class DataService {
     }
 
     static async insertHome(param){
-        const response = await axios.post(BASE_URL + 'api/Homes', param)
-        .then(function(response) {
-            alert("OK");
-          })
-          .catch(function(error) {
-            console.log("error");
-          });
-        return response;
+      console.log(param);
+        // const response = await axios.post(BASE_URL + 'api/Homes', param)
+        // .then(function(response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function(error) {
+        //     console.log("error" + response);
+        //   });
+        // return response;
     }
 }

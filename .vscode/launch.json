@@ -2,11 +2,29 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/webapi/bin/Debug/net7.0/webapi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "type": "node-terminal",
             "name": "Run Script: start",
             "request": "launch",
             "command": "npm run start",
             "cwd": "${workspaceFolder}\\reactapp"
         },
+        {
+            "name": "Run ALL PROJECT",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "concurrently \"dotnet run --project ${workspaceFolder}/webapi\" \"npm run start --prefix ${workspaceFolder}/reactapp\"",
+            "cwd": "${workspaceFolder}"
+        }
     ]
 }
