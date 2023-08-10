@@ -64,7 +64,7 @@ function TableHouse() {
                           marginLeft: "5em",
                         }}
                       >
-                        {record}
+                        {/* {record} сюда нужно таблицу запихнуть по счетчикам а в нее уже таблицу с показателями */}
                       </p>
                     ),
                     rowExpandable: (record) => record.name !== 'Not Expandable',
