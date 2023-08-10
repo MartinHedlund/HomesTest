@@ -13,6 +13,7 @@ import {
 import { Button, Input, Layout, Menu, Modal, theme } from "antd";
 import MyForm from "./components/MyForm";
 import MyModalWindow from "./components/MyModalWindow";
+import TableHouse from "./components/TableHouse";
 const { Header, Content, Footer, Sider } = Layout;
 const items = [
     UserOutlined,
@@ -43,14 +44,18 @@ const App = () => {
 
 
     return (
-        <Layout >
+        <Layout hasSider>
             <Sider
                 breakpoint="lg"
                 collapsible
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}
                 style={{
-
+                    overflow: 'auto',
+                    height: '100vh',
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
                 }}
             >
                 <div className="demo-logo-vertical" style={{ color: "#fefe22" }}>
@@ -101,16 +106,7 @@ const App = () => {
                             background: colorBgContainer
                         }}
                     >
-                        <p>long content</p>
-                        {
-                            // indicates very long content
-                            Array.from({ length: 100 }, (_, index) => (
-                                <React.Fragment key={index}>
-                                    {index % 20 === 0 && index ? 'more' : '...'}
-                                    <br />
-                                </React.Fragment>
-                            ))
-                        }
+                        <TableHouse />
                     </div>
                 </Content>
                 <Footer
