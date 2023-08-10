@@ -11,6 +11,6 @@ namespace webapi.Model
         public int Id { get; set; }
         public string? Adress { get; set; }
 
-        public List<WaterMeter>? WaterMeterId { get; set; }
+        public WaterMeter? WaterMetrSerialNum { get; set; }
     }
 }
