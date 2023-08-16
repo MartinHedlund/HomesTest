@@ -8,6 +8,7 @@ export default class DataService {
 
     static async insertHome(param){
       console.log(param);
+      
         // const response = await axios.post(BASE_URL + 'api/Homes', param)
         // .then(function(response) {
         //     console.log(response);

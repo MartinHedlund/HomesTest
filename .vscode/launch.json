@@ -23,7 +23,7 @@
             "name": "Run ALL PROJECT",
             "type": "node-terminal",
             "request": "launch",
-            "command": "concurrently \"dotnet run --project ${workspaceFolder}/webapi\" \"npm run start --prefix ${workspaceFolder}/reactapp\"",
+            "command": "concurrently \"dotnet run --project ${workspaceFolder}\\webapi\" \"npm run start --prefix ${workspaceFolder}/reactapp\"",
             "cwd": "${workspaceFolder}"
         }
     ]

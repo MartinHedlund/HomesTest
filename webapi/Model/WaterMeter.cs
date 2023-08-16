@@ -3,13 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.Model
 {
-    [Table("WaterMeter", Schema = "dbo")]
+    [Table("WaterMetr", Schema = "dbo")]
     public class WaterMeter
     {
         [Key]
-        public int Id { get; set; }
+        public int WaterMetrId { get; set; }
         public string? SerialNumber { get; set; }
-        public List<int>? Reading { get; set; }
         [ForeignKey(nameof(HomeId))]
         public int? HomeId { get; set; }
         //public Home? Home { get; set; }

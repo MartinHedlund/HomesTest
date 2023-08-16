@@ -15,11 +15,11 @@ namespace webapi.Controllers
     [ApiController]
     public class HomesController : ControllerBase
     {
-        private readonly DbServise _context;
+        private readonly HomeRepository _repository;
 
-        public HomesController(DbServise context)
+        public HomesController(HomeRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         // GET: api/Homes
@@ -28,18 +28,13 @@ namespace webapi.Controllers
         public async Task<ActionResult<IEnumerable<Home>>> GetHomes()
         //public async Task<ActionResult<string>> GetHomes()
         {
-          if (_context.Homes == null)
-          {
-              return NotFound();
-          }
             try
             {
-                return await _context.Homes.Include(x => x.WaterMeterId).ToListAsync(); ;
+                return await _repository.GetAll();
 
             }
             catch (Exception ex)
             {
-
                 await Console.Out.WriteLineAsync(ex.Message);
                 return BadRequest(ex.Message);
             }
@@ -49,18 +44,21 @@ namespace webapi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Home>> GetHomebyId(int id)
         {
-          if (_context.Homes == null)
-          {
-              return NotFound();
-          }
-            var home = await _context.Homes.Include(x => x.WaterMeterId).FirstOrDefaultAsync();
+            //if (_context.Homes == null)
+            //{
+            //    return NotFound();
+            //}
+            //var home = await _context.Homes.Include(x => x.WaterMetrId).FirstOrDefaultAsync();
 
-            if (home == null)
-            {
-                return NotFound();
-            }
+            //if (home == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return home;
+            //return home;
+
+
+            return NoContent();
         }
 
         // PUT: api/Homes/5
@@ -68,28 +66,28 @@ namespace webapi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHome(int id, Home home)
         {
-            if (id != home.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != home.Id)
+            //{
+            //    return BadRequest();
+            //}
 
-            _context.Entry(home).State = EntityState.Modified;
+            //_context.Entry(home).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HomeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!HomeExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
@@ -97,41 +95,40 @@ namespace webapi.Controllers
         // POST: api/Homes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Route("post-home")]
         public async Task<ActionResult<Home>> PostHome([FromBody] Home home)
         {
-          if (_context.Homes == null)
-          {
-              return Problem("Entity set 'DbServise.Homes'  is null.");
-          }
-            _context.Homes.Add(home);
-            await _context.SaveChangesAsync();
+          
+            Home? additem = _repository.Add(home);
+            if (additem == null) return BadRequest("Obj not add");
 
-            return CreatedAtAction("GetHome", new { id = home.Id }, home);
+            return additem;
         }
 
         // DELETE: api/Homes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHome(int id)
         {
-            if (_context.Homes == null)
-            {
-                return NotFound();
-            }
-            var home = await _context.Homes.FindAsync(id);
-            if (home == null)
-            {
-                return NotFound();
-            }
+            //if (_context.Homes == null)
+            //{
+            //    return NotFound();
+            //}
+            //var home = await _context.Homes.FindAsync(id);
+            //if (home == null)
+            //{
+            //    return NotFound();
+            //}
 
-            _context.Homes.Remove(home);
-            await _context.SaveChangesAsync();
+            //_context.Homes.Remove(home);
+            //await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool HomeExists(int id)
         {
-            return (_context.Homes?.Any(e => e.Id == id)).GetValueOrDefault();
+            //return (_context.Homes?.Any(e => e.Id == id)).GetValueOrDefault();
+            return false;
         }
     }
 }

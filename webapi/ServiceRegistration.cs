@@ -1,6 +1,7 @@
 ﻿using webapi.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting.Server;
+using webapi.Model.Interface;
 
 namespace webapi
 {
@@ -15,6 +16,7 @@ namespace webapi
             string constring = "Server = (localdb)\\MSSQLLocalDB; Database = Material; Trusted_Connection = True;";
             services.AddDbContext<DbServise>(options => options.UseSqlServer(constring));
             services.AddScoped<DbServise>();
+            services.AddScoped<HomeRepository>();
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -24,6 +26,7 @@ namespace webapi
                                               .AllowAnyMethod();
                     });
             });
+
             // Добавьте свои сервисы здесь
             // services.AddTransient<IMyService, MyService>();
             // services.AddScoped<IAnotherService, AnotherService>();

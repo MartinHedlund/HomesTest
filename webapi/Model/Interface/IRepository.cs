@@ -1,12 +1,14 @@
-﻿namespace webapi.Model.Interface
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace webapi.Model.Interface
 {
     public interface IRepository<T>
     {
-        IEnumerable<T> GetAll();
-        T? GetById(int id);
-        void Add(T item);
+        Task<ActionResult<IEnumerable<T>>> GetAll();
+        Task<T?> GetById(int id);
+        T? Add(T item);
         void Update(T item);
         void Delete(T item);
-       
+        // bool Checked (T item);
     }
 }

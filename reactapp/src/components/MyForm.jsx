@@ -8,7 +8,11 @@ const MyForm = () => {
   const [expandForm, setExpandForm] = useState(false);
 
   const onFinish = (values) => {
+    // доделать строчку что то там с '' и null проверку
+    var address = `${values["prefix"]} ${values["streat"]} д.${values["house"]} ${values["flour"] !== '' ? `э.${values["flour"]}`: ''} ${values["appartament"] ??= `кв.${values["appartament"]}`}`
     console.log(values);
+    console.log(address);
+    
     // const rest = DataService.insertHome(values);
   };
 
@@ -59,7 +63,7 @@ const MyForm = () => {
               <Input placeholder='35' />
             </Form.Item>
             <Form.Item name="flour" label="Этаж">
-              <Input placeholder='2' />
+              <Input placeholder='2'/>
             </Form.Item>
             <Form.Item name="appartament" label="Квартира">
               <Input placeholder='15' />

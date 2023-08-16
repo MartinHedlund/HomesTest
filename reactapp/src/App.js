@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
+import './App.css';
 import {
     AppstoreOutlined,
     BarChartOutlined,
@@ -34,29 +35,14 @@ const items = [
 const App = () => {
 
     const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer }
-    } = theme.useToken();
-
-    // modal back
-    
-    // end
-
 
     return (
         <Layout hasSider>
-            <Sider
+            <Sider className="App-sider"
                 breakpoint="lg"
                 collapsible
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}
-                style={{
-                    overflow: 'auto',
-                    height: '100vh',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                }}
             >
                 <div className="demo-logo-vertical" style={{ color: "#fefe22" }}>
                     Тупо текст, который я зачем то сюда написал
@@ -69,43 +55,15 @@ const App = () => {
                 />
             </Sider>
             <Layout>
-                <Header
-                    style={{
-                        display: 'flex',
-                        height: 'auto',
-                        padding: 0,
-                        margin: '5px 16px 0px',
-                        background: colorBgContainer
-                    }}
-                >
+                <Header className="App-header">
+
                     <MyModalWindow title="Создать новый дом">
                         <MyForm/>
                     </MyModalWindow>
-                    {/* <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flexWrap: 'warp',
-                    }}>
-                        <p>поиграться со стилями что то не то</p>
-                        <p>тут вставить кнопку которая открывает модальное окно для добавления дома в контенте</p>
-                        <p>сделать таблицу с поиском и добавлением счетчика и редактирование</p>
-                    </div> */}
+
                 </Header>
-                <Content
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 280,
-                        background: colorBgContainer,
-                    }}
-                >
-                    <div
-                        style={{
-                            padding: 50,
-                            textAlign: "center",
-                            background: colorBgContainer
-                        }}
-                    >
+                <Content className="App-content">
+                    <div className="App-divTable">
                         <TableHouse />
                     </div>
                 </Content>
